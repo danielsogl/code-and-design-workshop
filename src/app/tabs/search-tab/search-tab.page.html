@@ -22,7 +22,7 @@
   <ion-list>
     <!-- [routerLink] verlinkt auf die "Movie" Seite der App -->
     <!-- *ngFor erzeugt für jeden Film ein neues "ion-item" in der Liste -->
-    <ion-item detail [routerLink]="['/movie']" *ngFor="let movie of movies">
+    <ion-item detail [routerLink]="['/movie', movie.id]" *ngFor="let movie of movies">
       <ion-thumbnail slot="start">
         <!-- Hier wird das Poster angezeigt -->
         <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" />

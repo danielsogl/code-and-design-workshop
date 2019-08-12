@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
+import { Movie } from '../../models/movie.model';
 import { SearchResult } from '../../models/search-result.model';
 
 @Injectable({
@@ -39,6 +40,24 @@ export class TMDBService {
     // Hier wird die Anfrage ausgeführt und das Ergebnis
     // als Antwort zurückgegeben
     return this.http.get<SearchResult>(url, { params }).toPromise();
+  }
+
+  /**
+   * Diese Funktion gibt alle Informationen über einen Film
+   * anhand einer ID zurück
+   *
+   * @param id Die eindeutige ID eines Films
+   */
+  public getMovie(id: number): Promise<Movie> {
+    // Hier wird die URL anhand der Dokumentation zusammengebaut
+    const url = `${this.endpoint}/movie/${id}`;
+
+    // Diese Funktion brauch keine weiteren Parameter
+    const params = this.getDefaultParams();
+
+    // Hier wird die Anfrage ausgeführt und das Ergebnis
+    // als Antwort zurückgegeben
+    return this.http.get<Movie>(url, { params }).toPromise();
   }
 
   /**

@@ -1,12 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button defaultHref="/"></ion-back-button>
     </ion-buttons>
-    <ion-title>Movie</ion-title>
+    <ion-title>{{ movie?.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <!-- Hier wird der Lade-Spinner zentriert dargestellt -->
+  <div text-center *ngIf="isLoading">
+    <!-- Das ist ein Zeilenumbruch -->
+    <br />
+    <ion-spinner></ion-spinner>
+  </div>
 </ion-content>
