@@ -1,26 +1,43 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Search</ion-title>
+    <ion-title>Suche</ion-title>
   </ion-toolbar>
+  <!-- Hier ist unsere Suchleiste -->
   <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
+    <!-- [(ngModel)] verbindet ein HTML-Eingabefeld mit einer Variable in unserem Controller -->
+    <!-- (ionChange) wird automatisch aufgerufen sobald der User etwas in der Suche eingegeben hat -->
+    <ion-searchbar [(ngModel)]="query" (ionChange)="search()"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <!-- Hier wird der Lade-Spinner zentriert dargestellt -->
+  <div text-center *ngIf="isLoading">
+    <!-- Das ist ein Zeilenumbruch -->
+    <br />
+    <ion-spinner></ion-spinner>
+  </div>
+
+  <!-- Hier werden die gesuchten Filme aufgelistet -->
   <ion-list>
-    <ion-item detail [routerLink]="['/movie']">
+    <!-- [routerLink] verlinkt auf die "Movie" Seite der App -->
+    <!-- *ngFor erzeugt für jeden Film ein neues "ion-item" in der Liste -->
+    <ion-item detail [routerLink]="['/movie']" *ngFor="let movie of movies">
       <ion-thumbnail slot="start">
-        <img src="http://www.impawards.com/2009/posters/avatar_xlg.jpg" />
+        <!-- Hier wird das Poster angezeigt -->
+        <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" />
       </ion-thumbnail>
+      <!-- Hier werden alle anderen Informationen angezeigt die du in der UI sehen möchtest -->
       <ion-label text-wrap>
         <ion-text>
-          <h1>Avatar</h1>
+          <h4>{{ movie.title }}</h4>
         </ion-text>
         <ion-text>
-          <h4>Rating: 74%</h4>
+          <p>Bewertung: {{ movie.vote_average }}%</p>
         </ion-text>
-        <ion-note>December 10, 2009</ion-note>
+        <!-- Mit "| dates" können Daten formatiert werden -->
+        <!-- In unserem Beispiel wird aus dem US-Text ein deutsches Format -->
+        <ion-note>{{ movie.release_date | date }}</ion-note>
       </ion-label>
     </ion-item>
   </ion-list>
